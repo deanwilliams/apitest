@@ -13,6 +13,8 @@ import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.bundles.redirect.HttpsRedirect;
+import io.dropwizard.bundles.redirect.RedirectBundle;
 import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -28,11 +30,13 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
 
     @Override
     public String getName() {
-        return "ErrorTest";
+        return "ApiTest";
     }
 
     @Override
     public void initialize(final Bootstrap<ApiTestConfiguration> bootstrap) {
+        // Setup HTTPS redirect
+        bootstrap.addBundle(new RedirectBundle(new HttpsRedirect(true)));
         // Setup the favicon
         bootstrap.addBundle(new AssetsBundle("/assets/favicon.ico", "/favicon.ico", null, "favicon"));
     }
