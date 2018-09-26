@@ -52,7 +52,7 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
         // Authentication
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(new ApiAuthenticator(configuration.getPasswordManagement(), userDao))
+                        .setAuthenticator(new ApiAuthenticator(userDao))
                         .setUnauthorizedHandler(new ApiUnauthorizedHandler())
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);

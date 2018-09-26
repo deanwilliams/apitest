@@ -14,11 +14,9 @@ public class ApiAuthenticator implements Authenticator<BasicCredentials, User> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiAuthenticator.class);
 
-    private PasswordManagementConfiguration passwordManagement;
     private UserDao dao;
 
-    public ApiAuthenticator(PasswordManagementConfiguration passwordManagement, UserDao dao) {
-        this.passwordManagement = passwordManagement;
+    public ApiAuthenticator(UserDao dao) {
         this.dao = dao;
     }
 
