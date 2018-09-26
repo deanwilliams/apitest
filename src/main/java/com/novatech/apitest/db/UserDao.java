@@ -12,6 +12,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
 import java.util.List;
+import java.util.Optional;
 
 @RegisterRowMapper(UserMapper.class)
 @RegisterArgumentFactory(PasswordDigestArgumentFactory.class)
@@ -21,10 +22,10 @@ public interface UserDao {
     List<User> getUsers();
 
     @SqlQuery("select * from users where id = :id")
-    User getUserById(@Bind("id") long id);
+    Optional<User> getUserById(@Bind("id") long id);
 
     @SqlQuery("select * from users where user_name = :userName")
-    User getUserByUserName(@Bind("userName") final String userName);
+    Optional<User> getUserByUserName(@Bind("userName") final String userName);
 
     @SqlUpdate("insert into users (user_name, password) values (:userName, :passwordDigest)")
     @GetGeneratedKeys

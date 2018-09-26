@@ -22,14 +22,14 @@ public class ApiAuthenticator implements Authenticator<BasicCredentials, User> {
 
     @Override
     public Optional<User> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
-        User user = dao.getUserByUserName(basicCredentials.getUsername());
-        if (user == null) {
-            return Optional.empty();
-        }
+        Optional<User> user = dao.getUserByUserName(basicCredentials.getUsername());
 
-        PasswordDigest digest = user.getPasswordDigest();
-        boolean validPassword = digest.checkPassword(basicCredentials.getPassword());
-        return validPassword ? Optional.of(user) : Optional.empty();
+        boolean validUser = false;
+        if (user.isPresent()) {
+            PasswordDigest digest = user.get().getPasswordDigest();
+            validUser = digest.checkPassword(basicCredentials.getPassword());
+        }
+        return validUser ? user : Optional.empty();
     }
 
 }

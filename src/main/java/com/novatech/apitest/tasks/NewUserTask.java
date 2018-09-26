@@ -14,6 +14,7 @@ import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Optional;
 
 public class NewUserTask extends PostBodyTask {
 
@@ -42,7 +43,7 @@ public class NewUserTask extends PostBodyTask {
         PasswordDigest digest = PasswordDigest.generateFromPassword(
                 passwordManagement.getBcryptCost(), createUserRequest.getPassword());
 
-        User user = null;
+        Optional<User> user = Optional.empty();
         try {
             int id = dao.createUser(createUserRequest.getUserName(), digest);
             user = dao.getUserById(id);
@@ -51,10 +52,10 @@ public class NewUserTask extends PostBodyTask {
             output.flush();
             return;
         }
-        if (user != null) {
-            output.write("User " + user.getUserName() + " created");
+        if (user.isPresent()) {
+            output.write("User " + user.get().getUserName() + " created");
         } else {
-            output.write("User " + user.getUserName() + " creation failed!");
+            output.write("User " + createUserRequest.getUserName() + " creation failed!");
         }
         output.flush();
     }

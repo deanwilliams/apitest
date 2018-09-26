@@ -15,6 +15,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Optional;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,11 +46,11 @@ public class UserResource {
     @Path("/{user_name}")
     public User getUserByUsername(@Auth User user, @PathParam("user_name") String userName) {
         LOGGER.info("Getting user: " + userName);
-        User foundUser = dao.getUserByUserName(userName);
-        if (foundUser == null) {
+        Optional<User> foundUser = dao.getUserByUserName(userName);
+        if (!foundUser.isPresent()) {
             throw new WebApplicationException("User " + userName + " does not exist", Response.Status.BAD_REQUEST);
         }
-        return foundUser;
+        return foundUser.get();
     }
 
 }
