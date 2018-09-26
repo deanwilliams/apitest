@@ -42,12 +42,12 @@ public class UserResource {
     @PermitAll
     @GET
     @Timed
-    @Path("/{id}")
-    public User getUserById(@Auth User user, @PathParam("id") long id) {
-        LOGGER.info("Getting user by ID: " + id);
-        User foundUser = dao.getUserById(id);
+    @Path("/{user_name}")
+    public User getUserByUsername(@Auth User user, @PathParam("user_name") String userName) {
+        LOGGER.info("Getting user: " + userName);
+        User foundUser = dao.getUserByUserName(userName);
         if (foundUser == null) {
-            throw new WebApplicationException("User ID " + id + " is not valid", Response.Status.BAD_REQUEST);
+            throw new WebApplicationException("User " + userName + " does not exist", Response.Status.BAD_REQUEST);
         }
         return foundUser;
     }
