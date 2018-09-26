@@ -8,6 +8,7 @@ server:
       keyStorePath: keystore.jks
       keyStorePassword: password1
       keyStoreType: JKS
+      supportedProtocols: [TLSv1.1, TLSv1.2]
   adminConnectors:
     - type: http
       port: 8081
