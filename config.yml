@@ -1,0 +1,33 @@
+server:
+  #rootPath: "/api"
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+      bindHost: 127.0.0.1
+
+database:
+  driverClass: org.postgresql.Driver
+  user: dean
+  # no password set
+  url: jdbc:postgresql://localhost/dean
+  properties:
+    charSet: UTF-8
+  maxWaitForConnection: 1s
+  validationQuery: "/* DB Health Check */ SELECT 1"
+  validationQueryTimeout: 3s
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+  evictionInterval: 10s
+  minIdleTime: 1 minute
+
+passwordManagement:
+  bcryptCost: 10
+
+logging:
+  level: INFO
+  loggers:
+    com.novatech: DEBUG
