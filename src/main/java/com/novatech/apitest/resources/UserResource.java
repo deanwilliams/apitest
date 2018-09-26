@@ -60,17 +60,13 @@ public class UserResource {
             throw new WebApplicationException("Unable to process JSON", Response.Status.BAD_REQUEST);
         }
         LOGGER.info("Creating new user...");
-        User newUser = new User(
-                createUserRequest.getId(),
-                createUserRequest.getUserName(),
-                PasswordDigest.generateFromPassword(
-                        passwordManagement.getBcryptCost(), createUserRequest.getPassword()));
 
-        boolean success = dao.createUser(newUser);
-        if (success) {
-            return dao.getUserById(newUser.getId());
-        } else {
+        int id = dao.createUser(createUserRequest.getUserName(), PasswordDigest.generateFromPassword(
+                passwordManagement.getBcryptCost(), createUserRequest.getPassword()));
+        User user = dao.getUserById(id);
+        if (user == null) {
             throw new WebApplicationException("Unable to create user", Response.Status.BAD_REQUEST);
         }
+        return user;
     }
 }

@@ -5,7 +5,7 @@ import com.novatech.apitest.auth.ApiUnauthorizedHandler;
 import com.novatech.apitest.core.User;
 import com.novatech.apitest.db.UserDao;
 import com.novatech.apitest.errors.JsonProcessingExceptionMapper;
-import com.novatech.apitest.errors.UnableToRunSQLExceptionMapper;
+import com.novatech.apitest.errors.UnableToExecuteStatementExceptionMapper;
 import com.novatech.apitest.errors.WebExceptionMapper;
 import com.novatech.apitest.resources.UserResource;
 import io.dropwizard.Application;
@@ -47,12 +47,12 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
         // Exception Handlers
         environment.jersey().register(new WebExceptionMapper());
         environment.jersey().register(new JsonProcessingExceptionMapper());
-        environment.jersey().register(new UnableToRunSQLExceptionMapper());
+        environment.jersey().register(new UnableToExecuteStatementExceptionMapper());
 
         // Authentication
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(new ApiAuthenticator(userDao))
+                        .setAuthenticator(new ApiAuthenticator(configuration.getPasswordManagement(), userDao))
                         .setUnauthorizedHandler(new ApiUnauthorizedHandler())
                         .buildAuthFilter()));
         environment.jersey().register(RolesAllowedDynamicFeature.class);

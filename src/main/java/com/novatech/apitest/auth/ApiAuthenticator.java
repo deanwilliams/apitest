@@ -14,23 +14,24 @@ public class ApiAuthenticator implements Authenticator<BasicCredentials, User> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApiAuthenticator.class);
 
+    private PasswordManagementConfiguration passwordManagement;
     private UserDao dao;
 
-    public ApiAuthenticator(UserDao dao) {
+    public ApiAuthenticator(PasswordManagementConfiguration passwordManagement, UserDao dao) {
+        this.passwordManagement = passwordManagement;
         this.dao = dao;
     }
 
     @Override
     public Optional<User> authenticate(BasicCredentials basicCredentials) throws AuthenticationException {
-        LOGGER.debug("Username = " + basicCredentials.getUsername());
-        LOGGER.debug("Password = " + basicCredentials.getPassword());
-
-        User user = dao.validateUser(basicCredentials.getUsername(), basicCredentials.getPassword());
+        User user = dao.getUserByUserName(basicCredentials.getUsername());
         if (user == null) {
             return Optional.empty();
-        } else {
-            return Optional.of(user);
         }
+
+        PasswordDigest digest = user.getPasswordDigest();
+        boolean validPassword = digest.checkPassword(basicCredentials.getPassword());
+        return validPassword ? Optional.of(user) : Optional.empty();
     }
 
 }

@@ -8,19 +8,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 
-public class UnableToRunSQLExceptionMapper implements ExceptionMapper<UnableToExecuteStatementException> {
+public class UnableToExecuteStatementExceptionMapper implements ExceptionMapper<UnableToExecuteStatementException> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UnableToRunSQLExceptionMapper.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnableToExecuteStatementExceptionMapper.class);
 
     @Override
     public Response toResponse(UnableToExecuteStatementException e) {
         LOGGER.error(e.getMessage(), e);
 
+        // Username already exists in DB
+        if (e.getMessage().contains("duplicate key value")) {
+            return Response.status(Response.Status.CONFLICT)
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .entity(ErrorMessageFormatter.formatErrorMessage(Response.Status.CONFLICT, "Username already exists"))
+                    .build();
+        }
+
         // Default to an internal server error status.
         int status = 500;
 
-        // Get a nice human readable message for our status code if the exception
-        // doesn't already have a message
+        // Unexpected database error
         final String msg = "Unexpected error communicating with Database";
 
         // Create a JSON response with the provided hashmap

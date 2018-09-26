@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateUserRequest {
 
-    private int id;
+    @JsonProperty("user_name")
     private String userName;
     @JsonProperty("password")
     private String clearTextPassword;
@@ -13,18 +13,11 @@ public class CreateUserRequest {
         // No arg constructor
     }
 
-    public CreateUserRequest(int id, String userName, String clearTextPassword) {
-        this.id = id;
+    public CreateUserRequest(String userName, String clearTextPassword) {
         this.userName = userName;
         this.clearTextPassword = clearTextPassword;
     }
 
-    @JsonProperty("id")
-    public int getId() {
-        return id;
-    }
-
-    @JsonProperty("user_name")
     public String getUserName() {
         return userName;
     }
