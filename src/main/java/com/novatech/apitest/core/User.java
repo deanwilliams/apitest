@@ -2,9 +2,11 @@ package com.novatech.apitest.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.novatech.apitest.auth.PasswordDigest;
+import io.dropwizard.jackson.JsonSnakeCase;
 
 import java.security.Principal;
 
+@JsonSnakeCase
 public class User implements Principal {
 
     private int id;
@@ -21,17 +23,17 @@ public class User implements Principal {
         this.passwordDigest = passwordDigest;
     }
 
-    @JsonProperty("id")
+    @JsonProperty
     public int getId() {
         return id;
     }
 
-    @JsonProperty("user_name")
+    @JsonProperty
     public String getUserName() {
         return userName;
     }
 
-    @JsonProperty("password_digest")
+    @JsonProperty
     public PasswordDigest getPasswordDigest() {
         return passwordDigest;
     }

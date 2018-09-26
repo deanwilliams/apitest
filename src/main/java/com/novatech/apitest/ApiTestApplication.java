@@ -8,6 +8,7 @@ import com.novatech.apitest.errors.JsonProcessingExceptionMapper;
 import com.novatech.apitest.errors.UnableToExecuteStatementExceptionMapper;
 import com.novatech.apitest.errors.WebExceptionMapper;
 import com.novatech.apitest.resources.UserResource;
+import com.novatech.apitest.tasks.NewUserTask;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
@@ -59,6 +60,9 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
 
         // Resources
         environment.jersey().register(new UserResource(configuration.getPasswordManagement(), userDao));
+
+        // Admin tasks
+        environment.admin().addTask(new NewUserTask(configuration.getPasswordManagement(), userDao));
 
         // TODO: implement application
     }

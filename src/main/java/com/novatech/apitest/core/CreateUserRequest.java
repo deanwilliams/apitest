@@ -1,7 +1,9 @@
 package com.novatech.apitest.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.jackson.JsonSnakeCase;
 
+@JsonSnakeCase
 public class CreateUserRequest {
 
     @JsonProperty("user_name")

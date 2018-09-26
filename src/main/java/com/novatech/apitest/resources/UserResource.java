@@ -52,21 +52,4 @@ public class UserResource {
         return foundUser;
     }
 
-    @POST
-    @Timed
-    @Path("/new")
-    public User createUser(CreateUserRequest createUserRequest) {
-        if (createUserRequest == null) {
-            throw new WebApplicationException("Unable to process JSON", Response.Status.BAD_REQUEST);
-        }
-        LOGGER.info("Creating new user...");
-
-        int id = dao.createUser(createUserRequest.getUserName(), PasswordDigest.generateFromPassword(
-                passwordManagement.getBcryptCost(), createUserRequest.getPassword()));
-        User user = dao.getUserById(id);
-        if (user == null) {
-            throw new WebApplicationException("Unable to create user", Response.Status.BAD_REQUEST);
-        }
-        return user;
-    }
 }
