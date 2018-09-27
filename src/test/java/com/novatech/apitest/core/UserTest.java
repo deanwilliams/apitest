@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.novatech.apitest.auth.PasswordDigest;
 import io.dropwizard.jackson.Jackson;
 import org.junit.Test;
-import sun.security.util.Password;
 
 import static io.dropwizard.testing.FixtureHelpers.fixture;
 import static org.assertj.core.api.Assertions.assertThat;
