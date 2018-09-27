@@ -45,7 +45,7 @@ public class UserResourceTest {
 
     @After
     public void tearDown() {
-        // we have to reset the mock after each test because of the ß@ClassRule
+        // we have to reset the mock after each test because of the @ClassRule
         reset(dao);
     }
 
