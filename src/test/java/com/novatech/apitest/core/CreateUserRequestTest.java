@@ -16,7 +16,7 @@ public class CreateUserRequestTest {
         final CreateUserRequest userRequest = new CreateUserRequest("test_user", "password");
 
         final String expected = MAPPER.writeValueAsString(
-                MAPPER.readValue(fixture("fixtures/newUser.json"), CreateUserRequest.class));
+                MAPPER.readValue(fixture("fixtures/createUserRequest.json"), CreateUserRequest.class));
 
         assertThat(MAPPER.writeValueAsString(userRequest)).isEqualTo(expected);
     }
@@ -25,7 +25,7 @@ public class CreateUserRequestTest {
     public void deserializesFromJSON() throws Exception {
         final CreateUserRequest userRequest = new CreateUserRequest("test_user", "password");
 
-        assertThat(MAPPER.readValue(fixture("fixtures/newUser.json"), CreateUserRequest.class))
+        assertThat(MAPPER.readValue(fixture("fixtures/createUserRequest.json"), CreateUserRequest.class))
                 .isEqualTo(userRequest);
     }
 }
