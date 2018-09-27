@@ -10,7 +10,6 @@ import com.novatech.apitest.core.User;
 import com.novatech.apitest.db.UserDao;
 import io.dropwizard.jackson.Jackson;
 import io.dropwizard.servlets.tasks.PostBodyTask;
-import io.dropwizard.servlets.tasks.Task;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
 
 import java.io.IOException;
