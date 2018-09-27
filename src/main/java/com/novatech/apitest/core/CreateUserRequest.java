@@ -3,6 +3,8 @@ package com.novatech.apitest.core;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.jackson.JsonSnakeCase;
 
+import java.util.Objects;
+
 @JsonSnakeCase
 public class CreateUserRequest {
 
@@ -28,4 +30,17 @@ public class CreateUserRequest {
         return clearTextPassword;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CreateUserRequest that = (CreateUserRequest) o;
+        return Objects.equals(userName, that.userName) &&
+                Objects.equals(clearTextPassword, that.clearTextPassword);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, clearTextPassword);
+    }
 }

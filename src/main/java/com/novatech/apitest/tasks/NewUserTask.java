@@ -8,6 +8,7 @@ import com.novatech.apitest.auth.PasswordManagementConfiguration;
 import com.novatech.apitest.core.CreateUserRequest;
 import com.novatech.apitest.core.User;
 import com.novatech.apitest.db.UserDao;
+import io.dropwizard.jackson.Jackson;
 import io.dropwizard.servlets.tasks.PostBodyTask;
 import io.dropwizard.servlets.tasks.Task;
 import org.jdbi.v3.core.statement.UnableToExecuteStatementException;
@@ -17,6 +18,8 @@ import java.io.PrintWriter;
 import java.util.Optional;
 
 public class NewUserTask extends PostBodyTask {
+
+    private static final ObjectMapper MAPPER = Jackson.newObjectMapper();
 
     private final PasswordManagementConfiguration passwordManagement;
     private final UserDao dao;
@@ -30,10 +33,9 @@ public class NewUserTask extends PostBodyTask {
     @Timed
     @Override
     public void execute(ImmutableMultimap<String, String> parameters, String postBody, PrintWriter output) throws Exception {
-        ObjectMapper mapper = new ObjectMapper();
         CreateUserRequest createUserRequest = null;
         try {
-            createUserRequest = mapper.readValue(postBody, CreateUserRequest.class);
+            createUserRequest = MAPPER.readValue(postBody, CreateUserRequest.class);
         } catch (IOException e) {
             output.write("Invalid JSON");
             output.flush();
