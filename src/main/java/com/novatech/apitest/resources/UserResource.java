@@ -1,10 +1,8 @@
 package com.novatech.apitest.resources;
 
 import com.codahale.metrics.annotation.Timed;
-import com.novatech.apitest.auth.PasswordDigest;
 import com.novatech.apitest.auth.PasswordManagementConfiguration;
-import com.novatech.apitest.core.CreateUserRequest;
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
 import com.novatech.apitest.db.UserDao;
 import io.dropwizard.auth.Auth;
 import org.slf4j.Logger;

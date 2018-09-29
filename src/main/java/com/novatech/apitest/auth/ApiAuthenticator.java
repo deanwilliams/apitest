@@ -1,6 +1,6 @@
 package com.novatech.apitest.auth;
 
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
 import com.novatech.apitest.db.UserDao;
 import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;

@@ -1,7 +1,7 @@
 package com.novatech.apitest.db;
 
 import com.novatech.apitest.auth.PasswordDigest;
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 

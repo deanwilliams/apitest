@@ -1,4 +1,4 @@
-package com.novatech.apitest.core;
+package com.novatech.apitest.api;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;

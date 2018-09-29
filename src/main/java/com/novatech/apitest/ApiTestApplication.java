@@ -2,11 +2,13 @@ package com.novatech.apitest;
 
 import com.novatech.apitest.auth.ApiAuthenticator;
 import com.novatech.apitest.auth.ApiUnauthorizedHandler;
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
+import com.novatech.apitest.db.StockDao;
 import com.novatech.apitest.db.UserDao;
 import com.novatech.apitest.errors.JsonProcessingExceptionMapper;
 import com.novatech.apitest.errors.UnableToExecuteStatementExceptionMapper;
 import com.novatech.apitest.errors.WebExceptionMapper;
+import com.novatech.apitest.resources.StockResource;
 import com.novatech.apitest.resources.UserResource;
 import com.novatech.apitest.tasks.NewUserTask;
 import io.dropwizard.Application;
@@ -48,6 +50,7 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
         final JdbiFactory factory = new JdbiFactory();
         final Jdbi jdbi = factory.build(environment, configuration.getDataSourceFactory(), "database");
         final UserDao userDao = jdbi.onDemand(UserDao.class);
+        final StockDao stockDao = jdbi.onDemand(StockDao.class);
 
         // Exception Handlers
         environment.jersey().register(new WebExceptionMapper());
@@ -64,6 +67,7 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
 
         // Resources
         environment.jersey().register(new UserResource(configuration.getPasswordManagement(), userDao));
+        environment.jersey().register(new StockResource(stockDao));
 
         // Admin tasks
         environment.admin().addTask(new NewUserTask(configuration.getPasswordManagement(), userDao));

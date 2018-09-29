@@ -1,6 +1,7 @@
-package com.novatech.apitest.core;
+package com.novatech.apitest.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.novatech.apitest.api.CreateUserRequest;
 import io.dropwizard.jackson.Jackson;
 import org.junit.Test;
 

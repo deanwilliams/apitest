@@ -2,7 +2,7 @@ package com.novatech.apitest.resources;
 
 import com.novatech.apitest.auth.PasswordDigest;
 import com.novatech.apitest.auth.PasswordManagementConfiguration;
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
 import com.novatech.apitest.db.UserDao;
 import io.dropwizard.testing.junit.ResourceTestRule;
 import org.junit.After;

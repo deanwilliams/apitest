@@ -1,12 +1,10 @@
 package com.novatech.apitest.db;
 
 import com.novatech.apitest.auth.PasswordDigest;
-import com.novatech.apitest.core.CreateUserRequest;
-import com.novatech.apitest.core.User;
+import com.novatech.apitest.api.User;
 import org.jdbi.v3.sqlobject.config.RegisterArgumentFactory;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
-import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
