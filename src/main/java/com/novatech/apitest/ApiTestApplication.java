@@ -38,9 +38,10 @@ public class ApiTestApplication extends Application<ApiTestConfiguration> {
     @Override
     public void initialize(final Bootstrap<ApiTestConfiguration> bootstrap) {
         // Setup HTTPS redirect
-        bootstrap.addBundle(new RedirectBundle(new HttpsRedirect(true)));
-        // Setup the favicon
+        bootstrap.addBundle(new RedirectBundle(new HttpsRedirect(false)));
+        // Setup the favicon & robots.txt
         bootstrap.addBundle(new AssetsBundle("/assets/favicon.ico", "/favicon.ico", null, "favicon"));
+        bootstrap.addBundle(new AssetsBundle("/assets/robots.txt", "/robots.txt", null, "robots"));
     }
 
     @Override
